@@ -1,15 +1,7 @@
-#import "template.typ": project
-#show: project
+#import "template.typ": init
+#show: init.with("My Title", "My Subtitle")
 
-// --- Title ---
-#align(center)[
-  #text(size: 18pt, weight: "bold")[Technical Document Template]
-  #v(0.5em)
-  #text(size: 12pt, style: "italic")[A Small Example]
-]
 
-#line(length: 100%, stroke: 1pt + gray)
-#v(1em)
 
 = My Technical Document
 
