@@ -1,4 +1,4 @@
-#import "template.typ": init
+#import "template.typ": init, warn, note, tip
 #show: init.with("My Title", "My Subtitle")
 
 
@@ -17,3 +17,11 @@ Then I can visit http://localhost:8080/ to see the result.
 
 I can also reference variables like `foo` or `bar` inline without breaking my
 flow.
+
+#note[hi]
+
+#note(title: "Hello")[How are you?]
+
+#warn[Uh oh..]
+
+#tip[It's all good.]

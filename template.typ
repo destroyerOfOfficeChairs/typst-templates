@@ -1,3 +1,23 @@
+// --- Callout Boxes ---
+// Reusable admonitions for the body. Usage: #pitfall[...], #note[...], #tip[...]
+#let callout(kind, accent, bg, title: none, body) = block(
+  fill: bg,
+  stroke: (left: 3pt + accent),
+  inset: (x: 12pt, y: 10pt),
+  radius: 2pt,
+  width: 100%,
+  breakable: false,
+  [
+    #text(size: 9pt, weight: "bold", fill: accent)[#upper(if title != none { title } else { kind })]
+    #v(-4pt)
+    #body
+  ]
+)
+
+#let warn(title: none, body) = callout("Warning", rgb("#b23b2e"), rgb("#f9e9e7"), title: title, body)
+#let note(title: none, body) = callout("Note", rgb("#0b4c8c"), rgb("#e7f0f9"), title: title, body)
+#let tip(title: none, body)  = callout("Tip", rgb("#2e7d32"), rgb("#e8f3e9"), title: title, body)
+
 #let init(title, subtitle, body) = {
 
   // --- 1. Basic Document Settings ---
