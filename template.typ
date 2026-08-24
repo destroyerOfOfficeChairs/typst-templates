@@ -18,10 +18,10 @@
 #let note(title: none, body) = callout("Note", rgb("#0b4c8c"), rgb("#e7f0f9"), title: title, body)
 #let tip(title: none, body)  = callout("Tip", rgb("#2e7d32"), rgb("#e8f3e9"), title: title, body)
 
-#let init(title, subtitle, body) = {
+#let init(title, subtitle,font: none, author: "", date: "", logo: "", body) = {
 
   // --- 1. Basic Document Settings ---
-  set text(font: "Liberation Sans", size: 11pt)
+  set text(size: 11pt, ..if font != none { (font: font) })
   set page(margin: 1in)
 
   // --- 2. Juicy Inline Code ---
@@ -77,6 +77,26 @@
       #it
     ]
   )
+      
+  // --- Logo Placement ---
+  if logo != "" {
+    place(top + left, dy: -0.25in)[
+      #box(width: 2.5in, height: 1in)[
+        #image(logo, width: 100%, height: 100%, fit: "contain")
+      ]
+    ]
+  }
+
+  // --- Author & Date Placement ---
+  place(top + right, dy: -0.25in)[
+    #align(right)[
+      #text(size: 10pt, fill: luma(80))[
+        #author\
+        #date
+      ]
+    ]
+  ]
+
     
   // --- 5. Title ---
   align(center)[

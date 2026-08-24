@@ -1,5 +1,5 @@
 #import "template.typ": init, warn, note, tip
-#show: init.with("My Title", "My Subtitle")
+#show: init.with("My Title", "My Subtitle", logo: "bird.svg")
 
 
 
