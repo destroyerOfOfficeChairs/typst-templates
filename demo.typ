@@ -1,4 +1,4 @@
-#import "template.typ": init, warn, note, tip
+#import "template.typ": init, warn, note, tip, signature
 #show: init.with("My Title", "My Subtitle", logo: "bird.svg")
 
 
@@ -25,3 +25,5 @@ flow.
 #warn[Uh oh..]
 
 #tip[It's all good.]
+
+#signature(name: "Jane Doe", title: "Director of Operations")

@@ -18,11 +18,56 @@
 #let note(title: none, body) = callout("Note", rgb("#0b4c8c"), rgb("#e7f0f9"), title: title, body)
 #let tip(title: none, body)  = callout("Tip", rgb("#2e7d32"), rgb("#e8f3e9"), title: title, body)
 
-#let init(title, subtitle, font: none, author: "", date: "", logo: "", body) = {
+// --- Signature Block ---
+// A formal closing for a signed letter. Usage:
+//   #signature(name: "Jane Doe", title: "Director of Operations")
+// For a jointly-signed letter, pass arrays and each signer gets their own
+// line, laid out side by side:
+//   #signature(name: ("Jane Doe", "John Smith"), title: ("CEO", "CTO"))
+#let signature(
+  closing: "Sincerely,",
+  name: none,
+  title: none,
+  date: none,
+  gap: 3em,
+  line-width: 2.5in,
+) = {
+  // Accept either a single signer or an array of co-signers through the
+  // same `name`/`title` parameters, so the common one-signer case stays simple.
+  let names = if type(name) == array { name } else { (name,) }
+  let titles = if type(title) == array { title } else { (title,) }
+
+  v(2em)
+  if closing != none and closing != "" [#closing]
+
+  let sig-block(n, t) = [
+    #v(gap)
+    #line(length: line-width, stroke: 0.5pt + black)
+    #if n != none and n != "" [#n \ ]
+    #if t != none and t != "" [#text(size: 10pt, fill: luma(80))[#t]]
+  ]
+
+  if names.len() <= 1 {
+    sig-block(names.at(0, default: none), titles.at(0, default: none))
+  } else {
+    grid(
+      columns: names.len(),
+      column-gutter: 1em,
+      ..range(names.len()).map(i => sig-block(names.at(i), titles.at(i, default: none)))
+    )
+  }
+
+  if date != none and date != "" [
+    #v(1em)
+    #date
+  ]
+}
+
+#let init(title, subtitle, font: none, author: "", date: "", logo: "", paper: "us-letter", body) = {
 
   // --- 1. Basic Document Settings ---
   set text(size: 11pt, ..if font != none { (font: font) })
-  set page(margin: 1in)
+  set page(margin: .75in, paper: paper)
 
   // --- 2. Juicy Inline Code ---
   show raw.where(block: false): box.with(
