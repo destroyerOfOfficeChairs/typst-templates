@@ -69,6 +69,40 @@
   set text(size: 11pt, ..if font != none { (font: font) })
   set page(margin: .75in, paper: paper)
 
+  // --- Headings ---
+  // L1 headers get a bold accent bar, a subtle tinted background, and their
+  // own number, so each idea reads as a distinct "card start". L2/L3 are
+  // lighter, colored, and auto-numbered under their parent.
+  set heading(numbering: "1.1")
+
+  show heading.where(level: 1): it => {
+    v(0.6em)
+    block(
+      fill: rgb("#eef2f7"),
+      stroke: (left: 4pt + rgb("#0b4c8c")),
+      inset: (x: 12pt, y: 10pt),
+      radius: 2pt,
+      width: 100%,
+      breakable: false,
+      text(size: 16pt, weight: "bold", fill: rgb("#0b3a6b"))[
+        #counter(heading).display("1.")#h(6pt)#it.body
+      ],
+    )
+    v(0.4em)
+  }
+
+  show heading.where(level: 2): it => {
+    v(0.3em)
+    text(size: 12pt, weight: "bold", fill: rgb("#0b4c8c"))[
+      #counter(heading).display("1.1")#h(6pt)#it.body
+    ]
+    v(0.2em)
+  }
+
+  show heading.where(level: 3): it => {
+    text(size: 11pt, weight: "bold", fill: luma(60))[#it.body]
+  }
+
   // --- 2. Juicy Inline Code ---
   show raw.where(block: false): box.with(
     fill: luma(200),
