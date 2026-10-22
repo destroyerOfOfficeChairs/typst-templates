@@ -67,7 +67,7 @@
 
   // --- 1. Basic Document Settings ---
   set text(size: 11pt, ..if font != none { (font: font) })
-  set page(margin: .75in, paper: paper)
+  set page(margin: 1cm, paper: paper)
 
   // --- Headings ---
   // L1 headers get a bold accent bar, a subtle tinted background, and their
