@@ -93,14 +93,22 @@
 
   show heading.where(level: 2): it => {
     v(0.3em)
-    text(size: 12pt, weight: "bold", fill: rgb("#0b4c8c"))[
-      #counter(heading).display("1.1")#h(6pt)#it.body
-    ]
+    block(
+      fill: rgb("#eef2f7"),
+      stroke: (left: 4pt + rgb("#0b4c8c")),
+      inset: (x: 12pt, y: 10pt),
+      radius: 2pt,
+      width: auto,
+      breakable: false,
+      text(size: 15pt, weight: "bold", fill: rgb("#0b3a6b"))[
+        #counter(heading).display("1.1")#h(6pt)#it.body
+      ],
+    )
     v(0.2em)
   }
 
   show heading.where(level: 3): it => {
-    text(size: 11pt, weight: "bold", fill: luma(60))[#it.body]
+    text(size: 14pt, weight: "bold", fill: luma(60))[#it.body]
   }
 
   // --- 2. Juicy Inline Code ---
