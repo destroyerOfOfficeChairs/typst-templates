@@ -57,10 +57,30 @@
 // Holds the active palette so functions outside init can read it.
 #let palette-state = state("palette", palettes.default)
 
+// --- Title metadata ---
+// `authors` may be a single string or an array of strings.
+// `date` may be a datetime (shown as "01 Nov 2026") or a string (shown as-is).
+#let format-date(date) = {
+  if type(date) == datetime { date.display("[day] [month repr:short] [year]") } else { date }
+}
+
+#let title-meta(authors, date) = {
+  let names = if authors == none { () } else if type(authors) == array { authors } else { (authors,) }
+  if names.len() > 0 {
+    v(1.5em)
+    block(text(size: 14pt, fill: luma(60), names.join(linebreak())))
+  }
+  if date != none {
+    v(if names.len() > 0 { 0.5em } else { 1.5em })
+    block(text(size: 12pt, fill: luma(100), format-date(date)))
+  }
+}
+
 // --- Title Page ---
 // A dedicated cover page. Pass `logo` as a path to a PNG/SVG (e.g. "logo.svg")
 // to display it above the title; `logo-height` controls its size.
-#let title_page(title, subtitle: none, logo: none, logo-height: 2in) = context {
+// `authors` (string or array) and `date` (datetime or string) appear below.
+#let title_page(title, subtitle: none, authors: none, date: none, logo: none, logo-height: 2in) = context {
   let p = palette-state.get()
   align(center + horizon)[
     #if logo != none [
@@ -73,6 +93,8 @@
       v(1.5em)
       block(text(size: 18pt, fill: luma(100), subtitle))
     }
+
+    #title-meta(authors, date)
   ]
 }
 
@@ -80,7 +102,7 @@
 // A title block for the top of the first content page (in normal flow, not
 // a repeating page header). Pass `logo` as a path to a PNG/SVG to display it
 // above the title; `logo-height` controls its size.
-#let title_header(title, subtitle: none, logo: none, logo-height: 1in) = context {
+#let title_header(title, subtitle: none, authors: none, date: none, logo: none, logo-height: 1in) = context {
   let p = palette-state.get()
   align(center)[
     #if logo != none [
@@ -93,6 +115,8 @@
       v(1.5em)
       block(text(size: 18pt, fill: luma(100), subtitle))
     }
+
+    #title-meta(authors, date)
   ]
 }
 
