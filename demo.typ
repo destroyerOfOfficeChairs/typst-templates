@@ -1,7 +1,8 @@
-#import "template.typ": init, warn, note, tip, signature
-#show: init.with("My Title", "My Subtitle", logo: "bird.svg")
+#import "template.typ": init, warn, note, tip, title_page
 
+#show: init.with(palette: "default")
 
+#title_page("My Title", subtitle: "My Subtitle", logo: "heart.svg")
 
 = My Technical Document
 
@@ -25,5 +26,3 @@ flow.
 #warn[Uh oh..]
 
 #tip[It's all good.]
-
-#signature(name: "Jane Doe", title: "Director of Operations")
